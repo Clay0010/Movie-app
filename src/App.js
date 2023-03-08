@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+
+import {useEffect, useState} from 'react';
+import './index.css'
+import Movie from './Movie'
+import Youtube from 'react-youtube'
+import axios from 'axios'
+
+
+const App = () => {
+  
+  const [movies, setMovies] = useState([]);
+  const [query,setQuery] = useState('')
+   
+
+    const API_URL_ = 'https://api.themoviedb.org/3'
+const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
+
+
+    const handleSearch = (e) => {
+      e.preventDefault();
+      fetchMovies(query);
+  }
+
+
+  
+  
+
+ 
+
+  const fetchMovies = async (query) =>{
+    const type = query ?  'search/movie' : 'movie/popular'
+    const {data} = await axios.get(`${API_URL_}/${type}`, {
+      params:{
+        api_key: API_KEY,
+        query: query,
+        language:'en-US'
+        
+        
+      }
+    })
+    setMovies(data.results)
+    
+ 
+  }
+
+
+  useEffect(()=>{
+    fetchMovies();
+  },[])
+  
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    
+     <div>
+     <form onSubmit={handleSearch}>
+            
+            <input type="search"  name='search' onChange={(e)=> setQuery(e.target.value)} placeholder='Search Movies'/>
+            <button type='submit'>Search</button>
+            
+            
+        </form>
+     <div>
+     {
+            movies.map((movie)=><Movie key={movie.id} {...movie} />)
+     }
+     </div>
+      
+     </div>
+      
+      
     </div>
-  );
+  )
 }
 
 export default App;
+

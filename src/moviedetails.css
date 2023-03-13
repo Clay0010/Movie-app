@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+.container{
+    position: relative;
+    /* display: inline-block; */
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.background {
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    pointer-events: none;
+    height: 700px;
+    opacity: 0.4;
+    object-fit: cover;
+}
+.movie-content{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+}
+.movie-title{
+    font-size: 40px;
+font-family: Poppins;    
+}
+.movie-img{
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+}
+.movie-details{
+    font-family: Poppins;
+    width: 60vw;
+    background-color: rgba(0, 0, 0, 0.07);
+    text-shadow: 1px 1px 4px black;
+}
+.home{
+    margin-left: 80px;
+    margin-top:30px ;
+}
+.home-text{
+    font-size: 24px;
+}
+.actors {
+    float: left;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.actors img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.actors p {
+    font-size: 16px;
+}
+.actors-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 10dvw;
+    
+}

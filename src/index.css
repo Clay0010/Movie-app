@@ -10,9 +10,10 @@ body {
     background-color: #26272a;
     color: white;
     font-family: Poppins;
+    overflow-x: hidden;
 }
 
-form {
+.form {
     display: flex;
     justify-content: space-around;
     margin-top: 25px;
@@ -31,7 +32,7 @@ form {
 }
 
 .input:focus,
-input:hover {
+.input:hover {
     outline: none;
     padding: .2rem 1rem;
     border-radius: 1rem;
@@ -48,9 +49,7 @@ input:hover {
 }
 
 .heading {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+  
     margin: 25px 0;
     padding: 10px;
 
@@ -64,32 +63,47 @@ input:hover {
 }
 
 .movie {
-    width: 380px;
+    width: 15em;
     margin-top: 45px;
     position: relative;
-    border-bottom: 1px solid #a812e4;
-    border-left: 1px solid #a812e4;
+    /* border-bottom: 1px solid orange;
+    border-left: 1px solid orange; */
     padding-left: 10px;
     padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow: hidden; */
+    transition: all 0.3s ease-in-out;
 }
 
 .movie img {
     width: 100%;
-
     height: 400px;
-    object-fit: cover;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 15px;
     transition: all 0.2s ease-in-out;
+    position: relative;
+    /* overflow: hidden; */
 }
 
 .movie img:hover {
-    transform: scale(1.01);
-    border-radius: 5px;
+    border-radius: 25px;
+    transform: scale(0.97);
+    /* box-shadow: -3px 3px 26px 1px rgba(0, 0, 0, 0.44);
+    -webkit-box-shadow: -6px 4px 36px 2px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: -6px 4px 36px 2px rgba(0, 0, 0, 0.44); */
+    box-shadow: -6px 4px 31px -5px rgba(0, 0, 0, 0.44);
+    -webkit-box-shadow: -6px 4px 31px -5px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: -6px 4px 31px -5px rgba(0, 0, 0, 0.44);
 }
 
 .movie h1 {
-    font-size: 30px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: Poppins, serif;
 }
 
 .content {
@@ -101,20 +115,8 @@ input:hover {
 }
 
 .trailer {
-    color: white;
-    text-decoration: none;
-
-    border: 1px solid white;
+    text-decoration: none;  
     padding: 10px;
-
-    transition: all 0.3s ease-in-out;
-
-}
-
-.trailer:hover {
-    background-color: white;
-    color: black;
-    border-radius: 5px;
 }
 
 .card {
@@ -122,14 +124,93 @@ input:hover {
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 10px;
-
 }
 
 a {
     text-decoration: none;
     color: white;
 }
-.show-details{
+
+.show-details {
     border: 1px solid white;
     padding: 10px;
+}
+
+.genres {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 1.5rem;
+}
+
+.genres div p {
+    
+    padding: 10px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+}
+
+.filter h4 {
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    padding: .7rem;
+    margin: .3rem;
+    margin-bottom: .9rem;
+}
+
+.selected-genres {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.selected-genres div p {
+    /* margin-right: 20px; */
+    padding: 10px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+    max-width: fit-content;
+}
+
+.icon {
+    padding-left: 0.2em;
+}
+
+.filter-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.filter-button button {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 1px 1px 15px white;
+    transition: all .3s ease-in-out;
+}
+
+.filter-button button:hover {
+    background-color: orange;
+    color: white;
+    box-shadow: 1px 1px 25px rgb(224, 151, 17);
+}
+
+.pagination button,
+.pagination div {
+    color: white;
 }

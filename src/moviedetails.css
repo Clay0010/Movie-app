@@ -1,11 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 
-.container{
+.container {
     position: relative;
-    /* display: inline-block; */
+    
     overflow-x: hidden;
-    height: 100vh;
-    width: 100vw;
+    /* height: 100vh;
+    width: 100vw; */
 }
 
 .background {
@@ -15,59 +15,163 @@
     top: 0;
     z-index: -1;
     pointer-events: none;
-    height: 700px;
+    height: 100svh;
     opacity: 0.4;
     object-fit: cover;
 }
-.movie-content{
+
+.movie-content {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 100px;
+    height: 85svh;
 }
-.movie-title{
+
+.movie-title {
     font-size: 40px;
-font-family: Poppins;    
+    font-family: Poppins;
 }
-.movie-img{
+
+.movie-img {
     width: 300px;
     height: 400px;
     object-fit: cover;
 }
-.movie-details{
+
+.movie-details {
     font-family: Poppins;
     width: 60vw;
     background-color: rgba(0, 0, 0, 0.07);
+    box-shadow: -10px 9px 70px 6px rgba(0, 0, 0, 0.56);
+    -webkit-box-shadow: -10px 9px 70px 6px rgba(0, 0, 0, 0.56);
+    -moz-box-shadow: -10px 9px 70px 6px rgba(0, 0, 0, 0.56);
     text-shadow: 1px 1px 4px black;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 20px;
 }
-.home{
+
+.home {
     margin-left: 80px;
-    margin-top:30px ;
+    margin-top: 30px;
 }
-.home-text{
+
+.home-text {
     font-size: 24px;
 }
+
 .actors {
-    float: left;
     display: flex;
-    gap: 20px;
-    flex-direction: column;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+
+
 }
+
 .actors img {
-    width: 80px;
-    height: 80px;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
     border-radius: 50%;
 }
+
 .actors p {
-    font-size: 16px;
+    font-size: 15px;
+    height: 2rem;
 }
-.actors-details{
+
+.actors-details {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
-    width: 10dvw;
+
+    gap: 1rem;
+    /* padding: 10px; */
+    padding: .5rem 0;
+    width: 15vw;
+
+}
+
+/* .similar-movies {
+    margin-top: 50px;
+
+} */
+
+.similar-movie-details{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.similar-movie-details p{
+    padding: .5rem 0;
+}
+
+.similar-movies img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.similar-heading {
+    display: grid;
+    place-items: center;
+    /* margin-top: -100px; */
+    padding: 2rem;
+    text-transform: uppercase;
+
+}
+
+.test {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    transition: all 0.2s ease-in-out;
+    gap: 10px;
+}
+
+.movie-trailer {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 5svw;
+}
+
+.review {
+    display: flex;
+    justify-content: center;
+}
+
+.genresM {
+    display: flex;
+    justify-content: space-between;
     
+}
+
+.movieGenre {
+    padding: .5rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+    text-shadow: none;
+    border-radius: 1rem;
+    font-size: 14px;
+    max-height: 43.2px;
+}
+.bxl-imdb{
+   font-size: 1.9rem;
+   color: #f3ce13;
+}
+
+.genres-names{
+    display: flex;
+    gap: 20px;
+}
+
+.bxs-videos{
+    font-size: 2.5rem;
+    transition:all 0.3s ease-in-out;
+}
+.bxs-videos:hover{
+    color: red;
 }

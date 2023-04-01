@@ -1,0 +1,13 @@
+.actor-image{
+    width: 500px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.actor-profile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+    
+}

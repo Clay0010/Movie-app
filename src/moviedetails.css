@@ -175,3 +175,92 @@
 .bxs-videos:hover{
     color: red;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+    .home {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        margin: 0 !important;
+        justify-content: flex-start;
+    }
+
+    .home a {
+        font-size: 18px;
+        padding: 1rem 2rem;
+        text-decoration: underline;
+    }
+
+    .movie-content {
+        display: flex;
+        flex-direction: column;
+        height: 100% !important;
+    }
+
+    .movie-img {
+        /* width: 200px !important;
+        height: 220px !important;
+        object-fit: cover;
+        margin-top: 15px !important;
+        border-radius: 20px; */
+        display: none;
+
+    }
+
+    .movie-details {
+        width: 100% !important;
+        margin-top: 20px;
+    }
+
+    .movie-title {
+        font-size: 1.3em !important;
+    }
+
+    .movie-overview {
+        font-size: 16px;
+    }
+
+    .series-actors {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .actors-details {
+        gap: 4px !important;
+
+    }
+
+    .actors {
+        gap: 20px;
+        width: 100%;
+        flex-wrap: wrap;
+
+    }
+
+    .actor-name {
+        font-size: 12px !important;
+    }
+
+    .genresM {
+        margin-top: 15px;
+
+    }
+
+    .movieGenre {
+        font-size: 12px !important;
+        padding: 15px !important;
+        display: grid;
+        place-content: center;
+    }
+
+    .background {
+        object-fit: cover !important;
+        width: 100vw !important;
+        position: absolute;
+        inset: 0;
+        height: 100vh;
+        background-size: 100%;
+    }
+}

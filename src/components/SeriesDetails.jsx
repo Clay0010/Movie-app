@@ -117,7 +117,7 @@ const SeriesDetails = () => {
         {series.backdrop_path ? <img src={API_BACKDROP + series.backdrop_path} alt={series.title} className='background' /> : <img src={API_BACKDROP + series.poster_path} alt={series.title} className='background' />}
         <div className='movie-details'>
           <div style={{ display: 'flex' }}>
-            {series.original_language === 'en' ? <h1>{series.original_name}</h1> : <h1>{series.name}</h1>}
+            {series.original_language === 'en' ? <h1 className='movie-title'>{series.original_name}</h1> : <h1 className='movie-title'>{series.name}</h1>}
           </div>
 
           <p className='movie-overview'>{series.overview}</p>
@@ -134,9 +134,9 @@ const SeriesDetails = () => {
                 return (
 
                   <div className='actors-details' key={index}>
-                    {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} className='series.actors'/> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
+                    {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} className='series-actors'/> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
                     {
-                      actor.known_for_department === 'Acting' && <p>{actor.name}</p>
+                      actor.known_for_department === 'Acting' && <p className='actor-name'>{actor.name}</p>
                     }
                   </div>
                 )

@@ -25,6 +25,11 @@ const Movie = ({ original_title, poster_path, id, title, original_language }) =>
     fetchTrailer();
   }, [])
 
+  const transition = {
+    duration: 0.6,
+    ease: [0.43, 0.13, 0.23, 0.9]
+  }
+
   return (
     <motion.div initial='hidden' animate='visible' variants={{
       hidden: {
@@ -41,9 +46,7 @@ const Movie = ({ original_title, poster_path, id, title, original_language }) =>
       },
       
     }}
-    transition={{
-      ease: 'easeInOut', duration:0.5
-    }}
+    transition={transition}
     >
 
       <Link to={'/movie/' + id} state={id}>

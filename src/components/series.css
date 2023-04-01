@@ -13,6 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 15px;
 }
 .series-details img{
     width: 100%;
@@ -31,7 +32,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 .tv-input{
     width: 50%;
@@ -47,4 +48,16 @@
 .tv-input:focus::placeholder {
     opacity: 0;
     transition: opacity .3s ease-in-out;
+}
+.activeGenre{
+    color: red;
+}
+.links {
+    height: 6em;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+.links  h1  span{
+    color: orange;
 }

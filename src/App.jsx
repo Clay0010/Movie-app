@@ -7,7 +7,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import useGenres from './useGenres';
 import Pagination from '@mui/material/Pagination';
-
+import { motion } from 'framer-motion'
 const App = () => {
 
   const [movies, setMovies] = useState([]);
@@ -27,7 +27,7 @@ const App = () => {
     e.preventDefault();
     fetchMovies(query);
   }
-  
+
 
   const fetchMovies = async (query) => {
     const type = query ? 'search/movie' : 'discover/movie'
@@ -41,9 +41,9 @@ const App = () => {
       }
     })
     setMovies(data.results)
-    setTotalPages(()=>{
+    setTotalPages(() => {
       let total = data.total_pages
-      let totalpages = Math.min(Math.max(parseInt(total), 1), 500)
+      let totalpages = Math.min(Math.max(total, 1), 500)
       return totalpages
     })
 
@@ -97,25 +97,31 @@ const App = () => {
 
 
 
+  const transition = {
+    duration: 0.6,
+    ease: [0.43, 0.13, 0.23, 0.9]
+  }
+
   return (
 
     <div>
-      <form onSubmit={handleSearch} className='form'>
-        <div>
-          <Link to='/'>
-            <h1>Movies</h1>
-          </Link>
-          <Link to='/series'>
-            <h1>Series</h1>
-          </Link>
 
-        </div>
-        <input placeholder="Search" type="text" class="input" onChange={(e) => setQuery(e.target.value)} />
-      </form>
-      <motion.div className="heading">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition} className='mylinks'>
+        <Link to='/'>
+          <h1><span style={{color:'orange'}}>M</span>ovie Gallery</h1>
+        </Link>
+
+        <Link to='/series'>
+          <h1>Series</h1>
+        </Link>
+      </motion.div>
+      <motion.form onSubmit={handleSearch} className='tv-form' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
+        <input placeholder="Search Movies" type="text" className='tv-input' onChange={(e) => setQuery(e.target.value)} />
+      </motion.form>
+      <motion.div className="heading" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
         <h1>Popular Movies</h1>
       </motion.div>
-      <div>
+      <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={transition}>
 
         {
           showGenres ?
@@ -124,11 +130,11 @@ const App = () => {
                 {genre &&
                   genre.map((gen, index) => {
                     return (
-                      <div>
+                      <motion.div initial={{ scale: 0.7, opacity: 0, y: -20 }} animate={{ scale: 1, opacity: 1, y: 0 }} transition={transition}>
                         <p key={index} onClick={() => handleAdd(gen)}>
                           {gen.name}
                         </p>
-                      </div>
+                      </motion.div>
                     )
                   })}
               </div>
@@ -137,19 +143,19 @@ const App = () => {
                   selectedGenre.map((gen, index) => {
                     return (
                       <div>
-                        <div onClick={() => handleRemove(gen)} className='clickable'>
+                        <motion.div onClick={() => handleRemove(gen)} className='clickable' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
                           <p key={index} style={{ backgroundColor: 'orange' }} className='g'>{gen.name}
                             <i class="uil uil-times-circle icon"></i>
                           </p>
-                        </div>
+                        </motion.div>
                       </div>
                     )
                   })}
               </div>
               <div className='filter-button'>
-                <button onClick={() => setShowGenres(!showGenres)} >
+                <motion.button onClick={() => setShowGenres(!showGenres)} >
                   Hide Filter
-                </button>
+                </motion.button>
               </div>
             </div>
 
@@ -158,17 +164,17 @@ const App = () => {
             :
 
             <div className='filter-button'>
-              <button onClick={() => setShowGenres(!showGenres)} >
+              <motion.button onClick={() => setShowGenres(!showGenres)}>
                 Show Filter
-              </button>
+              </motion.button>
             </div>
         }
-      </div>
+      </motion.div>
 
 
       <div className='card'>
         {
-          movies.map((movie) => <Movie key={movie.id} {...movie}/>)
+          movies.map((movie) => <Movie key={movie.id} {...movie} />)
         }
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>

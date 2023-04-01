@@ -49,7 +49,7 @@ body {
 }
 
 .heading {
-  
+
     margin: 25px 0;
     padding: 10px;
 
@@ -115,7 +115,7 @@ body {
 }
 
 .trailer {
-    text-decoration: none;  
+    text-decoration: none;
     padding: 10px;
 }
 
@@ -145,7 +145,7 @@ a {
 }
 
 .genres div p {
-    
+
     padding: 10px;
     background-color: white;
     border-radius: 20px;
@@ -167,11 +167,12 @@ a {
 }
 
 .selected-genres {
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+
 }
 
 .selected-genres div p {
@@ -214,3 +215,13 @@ a {
 .pagination div {
     color: white;
 }
+
+.mylinks {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem;
+    align-items: center;
+}
+
+

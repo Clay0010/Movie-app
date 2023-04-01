@@ -147,12 +147,12 @@ function MovieDetails() {
         </Link>
       </div>
       <div className="movie-content">
-        
-            <img src={API_IMG + movie.poster_path} alt={movie.title} className='movie-img' />
-          
-      
 
-        
+        <img src={API_IMG + movie.poster_path} alt={movie.title} className='movie-img' />
+
+
+
+
         <div className='movie-details'>
           <div style={{ display: 'flex' }}>
             {movie.original_language === 'en' ? <h1>{movie.original_title}</h1> : <h1>{movie.title}</h1>}
@@ -169,13 +169,14 @@ function MovieDetails() {
             {
               actors.slice(0, 6).map((actor, index) => {
                 return (
-
-                  <div className='actors-details' key={index}>
-                    {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} /> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
-                    {
-                      actor.known_for_department === 'Acting' && <p>{actor.name}</p>
-                    }
-                  </div>
+                  <Link to={'/actor/' + actor.id} state={actor.id}>
+                    <div className='actors-details' key={index}>
+                      {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} /> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
+                      {
+                        actor.known_for_department === 'Acting' && <p>{actor.name}</p>
+                      }
+                    </div>
+                  </Link>
                 )
               })}
           </div>
@@ -191,8 +192,8 @@ function MovieDetails() {
               })}
             </div>
             <div className='f'>
-            <a href={`https://www.youtube.com/watch?v=${selected}`} target="_blank" rel="noopener noreferrer" className='trailer'>
-              <i class='bx bxs-videos bx-tada-hover' title='Trailer'></i>
+              <a href={`https://www.youtube.com/watch?v=${selected}`} target="_blank" rel="noopener noreferrer" className='trailer'>
+                <i class='bx bxs-videos bx-tada-hover' title='Trailer'></i>
               </a>
 
             </div>

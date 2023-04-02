@@ -1,11 +1,12 @@
-import React, { useEffect, useState  } from 'react'
-import Slider from "react-slick";
+import React, { useEffect, useState } from 'react'
+
 import axios from 'axios'
 import { useLocation } from 'react-router';
 import './actor.css'
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import Particles from '../partical/Partical'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import MovieDetails from '../../MovieDetails';
+// import Particles from '../partical/Partical'
 
 
 const Actor = () => {
@@ -19,6 +20,8 @@ const Actor = () => {
 
     const [actorDetails, setActorDetails] = useState({})
     const [actorMovies, setActorMovies] = useState([])
+    const [actorSeries, setActorSeries] = useState([])
+
     const fetchActorDetails = async () => {
         const { data } = await axios.get(`${BASE_API}/person/${id}`, {
             params: {
@@ -30,9 +33,10 @@ const Actor = () => {
         setActorDetails(data)
     }
 
-    const fetchActorMovies =async () =>{
-        const {data} = await axios.get(`${BASE_API}/person/${id}/movie_credits`,{
-            params:{
+    const fetchActorMovies = async () => {
+
+        const { data } = await axios.get(`${BASE_API}/person/${id}/movie_credits`, {
+            params: {
                 api_key: API_KEY,
                 language: 'en-US'
             }
@@ -40,52 +44,127 @@ const Actor = () => {
 
         setActorMovies(data.cast)
     }
+    const fetchActorSeries = async () => {
+
+        const { data } = await axios.get(`${BASE_API}/person/${id}/tv_credits`, {
+            params: {
+                api_key: API_KEY,
+                language: 'en-US'
+            }
+        })
+
+        setActorSeries(data.cast)
+    }
 
     useEffect(() => {
         fetchActorDetails();
         fetchActorMovies();
+        fetchActorSeries();
     }, [])
 
+    const responsive = {
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 5,
+            slidesToSlide: 4 // optional, default to 1.
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2,
+            slidesToSlide: 2 // optional, default to 1.
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1,
+            slidesToSlide: 1 // optional, default to 1.
+        }
+    };
 
-  
 
     return (
-        <div>
-        <Particles className='particle'/>
-           
+        <div className='container'>
+            {/* <Particles className='particle'/> */}
+
             <div className='actor-profile'>
-                <div>
+                <div className='actor-info'>
+                    <div>
 
-                    <img src={API_IMG + actorDetails.profile_path} alt={actorDetails.name} className='actor-image' />
+                        <img src={API_IMG + actorDetails.profile_path} alt={actorDetails.name} className='actor-image' />
+
+
+
+                    </div>
+                    <div>
+                        <h1>{actorDetails.name}</h1>
+                    </div>
+                    <p>{actorDetails.birthday}</p>
                 </div>
-                <div>
-                    <h1>{actorDetails.name}</h1>
+
+                <div className='actor-related-movies'>
+
+                    <h2 className='center'>Movies</h2>
+
+                    <Carousel
+                        responsive={responsive}
+                        ssr={true}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={6000}
+                    >
+
+                        {actorMovies.slice(0, 20).map((movie) => {
+                            return (<div>
+                                {
+                                    movie.poster_path ? <img src={MOVIE_IMG + movie.poster_path} alt={movie.original_title} className='actor-movie-image' />
+                                        :
+                                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png' alt={movie.original_title} className='actor-movie-image' />
+                                }
+
+                                <p>{movie.original_title}</p>
+                            </div>
+                            )
+
+
+
+                        })}
+                    </Carousel>
+
+
+
+
+
                 </div>
-                <p>{actorDetails.birthday}</p>
 
-                <h2>Movies</h2>
-            <div className='actor-movies'>
 
-            
-                 {actorMovies.slice(0,20).map((movie)=>{
-                      return (<div>
-                      <img src={MOVIE_IMG + movie.poster_path} alt="" />
-                      <p>{movie.original_title}</p>
-                      </div>
-                      )
-                      
-                      
-                      
-                     })}
-                    
+                <div className='actor-related-movies'>
+                    <h2 className='center'>TV Series</h2>
+                    <Carousel
+                        responsive={responsive}
+                        ssr={true}
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={6000}
+                    >
 
-                   
-                     </div>
-
+                        {actorSeries.slice(0, 20).map((movie) => {
+                            return (<div>
+                                {
+                                    movie.poster_path ? <img src={MOVIE_IMG + movie.poster_path} alt={movie.original_title} className='actor-movie-image' />
+                                        :
+                                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png' alt={movie.original_title} className='actor-movie-image' />
+                                }
+                                <p>{movie.original_name}</p>
+                            </div>
+                            )
+                        })}
+                    </Carousel>
                 </div>
+
+
             </div>
-                
-        
+        </div>
+
+
     )
 }
 

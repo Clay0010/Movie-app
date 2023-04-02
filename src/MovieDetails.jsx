@@ -217,7 +217,7 @@ function MovieDetails() {
           {/* //checking if this movie have similar movies from the api returned value 
           if so then execute the code below that will show the similar movie and if not 
           then execute the code below (**starts with recommendations.map**)which gets a list of recommended movies for a movie. */}
-          {!similar.length === 0 ? similar.slice(0, 20).map((single, index) => {
+          {similar.length !== 0 ? similar.slice(0, 20).map((single, index) => {
             return (
               <Link to={'/movie/' + similar.id} state={similar.id}>
 

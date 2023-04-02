@@ -1,25 +1,28 @@
-.actor-image{
+.actor-image {
     width: 500px;
     height: 450px;
     object-fit: cover;
     border-radius: 15px;
 }
-.actor-profile{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 100px;
-    
-}
-.particle{
-    z-index: -40;
-}
-.actor-movies{
-    display: flex;
-    float: right;
-    overflow-x: auto;
-    gap: 1rem;
-    
-}
 
-  
+
+.actor-info{
+    display: grid;
+    place-items: center;
+    margin-top:3rem;
+}
+.center{
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+}
+/* .particle {
+    z-index: -40;
+} */
+
+.actor-movie-image{
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    padding: 10px;
+}

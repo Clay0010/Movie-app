@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './moviedetails.css'
-
+import Carousel from 'react-multi-carousel'
 function MovieDetails() {
 
   const API_URL_ = 'https://api.themoviedb.org/3'
@@ -109,16 +109,26 @@ function MovieDetails() {
 
   }
 
-  // const fetchReviews = async()=>{
-  //   const {data} = await axios.get(`${API_URL_}/movie/${id}/reviews`,{
-  //     params:{
-  //       api_key: API_KEY,
-  //       language: 'en-US'
-  //     }
-  //   })
 
-  //   setReviews(data.results)
-  // }
+
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+      slidesToSlide: 4 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
+  };
 
 
 
@@ -213,7 +223,14 @@ function MovieDetails() {
         <div className='similar-heading'>
           <h1>Similar Movies </h1>
         </div>
-        <div className='test'>
+        <Carousel
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={6000}
+          
+        >
           {/* //checking if this movie have similar movies from the api returned value 
           if so then execute the code below that will show the similar movie and if not 
           then execute the code below (**starts with recommendations.map**)which gets a list of recommended movies for a movie. */}
@@ -272,7 +289,7 @@ function MovieDetails() {
           }
 
 
-        </div>
+        </Carousel>
 
 
       </div>

@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
-
+import { Link} from 'react-router-dom'
 import axios from 'axios'
 import { useLocation } from 'react-router';
 import './actor.css'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MovieDetails from '../../MovieDetails';
-// import Particles from '../partical/Partical'
-
+import Particle from '../particles/Particles'
 
 const Actor = () => {
     const BASE_API = 'https://api.themoviedb.org/3'
     const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
     const API_IMG = 'https://image.tmdb.org/t/p/original/';
     const MOVIE_IMG = 'https://image.tmdb.org/t/p/w300/';
-
     const location = useLocation();
     const id = location.state;
-
     const [actorDetails, setActorDetails] = useState({})
     const [actorMovies, setActorMovies] = useState([])
     const [actorSeries, setActorSeries] = useState([])
@@ -29,19 +25,16 @@ const Actor = () => {
                 language: 'en-US'
             }
         })
-
         setActorDetails(data)
     }
 
     const fetchActorMovies = async () => {
-
         const { data } = await axios.get(`${BASE_API}/person/${id}/movie_credits`, {
             params: {
                 api_key: API_KEY,
                 language: 'en-US'
             }
         })
-
         setActorMovies(data.cast)
     }
     const fetchActorSeries = async () => {
@@ -52,7 +45,6 @@ const Actor = () => {
                 language: 'en-US'
             }
         })
-
         setActorSeries(data.cast)
     }
 
@@ -80,19 +72,24 @@ const Actor = () => {
         }
     };
 
-
     return (
+        <>
+            <div>
+
+                <Link to='/' className='actor-links'>
+                    Home
+                </Link>
+            
+
+            </div>
         <div className='container'>
-            {/* <Particles className='particle'/> */}
-
+            
             <div className='actor-profile'>
+                
                 <div className='actor-info'>
+                    
                     <div>
-
                         <img src={API_IMG + actorDetails.profile_path} alt={actorDetails.name} className='actor-image' />
-
-
-
                     </div>
                     <div>
                         <h1>{actorDetails.name}</h1>
@@ -101,19 +98,19 @@ const Actor = () => {
                 </div>
 
                 <div className='actor-related-movies'>
-
                     <h2 className='center'>Movies</h2>
-
                     <Carousel
                         responsive={responsive}
                         ssr={true}
                         infinite={true}
                         autoPlay={true}
                         autoPlaySpeed={6000}
+                        
                     >
-
                         {actorMovies.slice(0, 20).map((movie) => {
-                            return (<div>
+                            return (
+                                <Link to={'/movie/' + movie.id} state={movie.id}>
+                                    <div className='similar-movie-details'>
                                 {
                                     movie.poster_path ? <img src={MOVIE_IMG + movie.poster_path} alt={movie.original_title} className='actor-movie-image' />
                                         :
@@ -122,20 +119,11 @@ const Actor = () => {
 
                                 <p>{movie.original_title}</p>
                             </div>
+                            </Link>
                             )
-
-
-
                         })}
                     </Carousel>
-
-
-
-
-
                 </div>
-
-
                 <div className='actor-related-movies'>
                     <h2 className='center'>TV Series</h2>
                     <Carousel
@@ -145,9 +133,10 @@ const Actor = () => {
                         autoPlay={true}
                         autoPlaySpeed={6000}
                     >
-
                         {actorSeries.slice(0, 20).map((movie) => {
-                            return (<div>
+                            return (
+                                <Link to={'/series/' + movie.id} state={movie.id}>
+                                    <div className='similar-movie-details'>
                                 {
                                     movie.poster_path ? <img src={MOVIE_IMG + movie.poster_path} alt={movie.original_title} className='actor-movie-image' />
                                         :
@@ -155,17 +144,18 @@ const Actor = () => {
                                 }
                                 <p>{movie.original_name}</p>
                             </div>
+                            </Link>
+
                             )
                         })}
                     </Carousel>
                 </div>
-
-
             </div>
+            <Particle /> 
+
         </div>
-
-
+        </>
     )
 }
 
-export default Actor
+export default Actor;

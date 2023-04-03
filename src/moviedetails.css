@@ -99,10 +99,11 @@
 } */
 
 .similar-movie-details{
-    width: 300px;
+    width: 280px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .similar-movie-details p{

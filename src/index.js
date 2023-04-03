@@ -18,7 +18,7 @@ root.render(
      
     <Routes>
 
-      <Route path='/' element={<App />}></Route>
+      <Route path='/' element={<App />} exact></Route>
       <Route path={'/movie/:id'} element={<MovieDetails id='id' />}></Route>
       <Route path='/series' element={<Series />}></Route>
       <Route path={'/series/:id'} element={<SeriesDetails id='id' />}></Route>

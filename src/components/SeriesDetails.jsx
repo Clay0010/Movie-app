@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
+import Carousel from 'react-multi-carousel';
 const SeriesDetails = () => {
 
   const location = useLocation();
@@ -43,7 +43,7 @@ const SeriesDetails = () => {
       }
     })
 
-    
+
     setActors(data.cast)
 
   }
@@ -90,6 +90,24 @@ const SeriesDetails = () => {
     setLatest(data.results)
   }
 
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+      slidesToSlide: 4 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
+  };
+
 
   useEffect(() => {
     fetchTv();
@@ -107,7 +125,7 @@ const SeriesDetails = () => {
   return (
     <div className="container">
       <div className='home'>
-        <Link to='/' className='home-text'>
+        <Link to='/series' className='home-text'>
           <h1> Home</h1>
         </Link>
       </div>
@@ -132,13 +150,14 @@ const SeriesDetails = () => {
             {
               actors.slice(0, 6).map((actor, index) => {
                 return (
-
-                  <div className='actors-details' key={index}>
-                    {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} className='series-actors'/> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
-                    {
-                      actor.known_for_department === 'Acting' && <p className='actor-name'>{actor.name}</p>
-                    }
-                  </div>
+                  <Link to={'/actor/' + actor.id} state={actor.id}>
+                    <div className='actors-details' key={index}>
+                      {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} className='series-actors' /> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
+                      {
+                        actor.known_for_department === 'Acting' && <p className='actor-name'>{actor.name}</p>
+                      }
+                    </div>
+                  </Link>
                 )
               })}
           </div>
@@ -146,15 +165,15 @@ const SeriesDetails = () => {
 
             <div className='genres-names'>
 
-              {seriesGenre.map((gen,index) => {
+              {seriesGenre.map((gen, index) => {
                 return (
                   <p className='movieGenre' key={index}>{gen.name}</p>
                 )
               })}
             </div>
             <div className='f'>
-            <a href={`https://www.youtube.com/watch?v=${selected}`} target="_blank" rel="noopener noreferrer" className='trailer'>
-              <i class='bx bxs-videos bx-tada-hover' title='Trailer'></i>
+              <a href={`https://www.youtube.com/watch?v=${selected}`} target="_blank" rel="noopener noreferrer" className='trailer'>
+                <i class='bx bxs-videos bx-tada-hover' title='Trailer'></i>
               </a>
 
             </div>
@@ -165,10 +184,17 @@ const SeriesDetails = () => {
         </div>
       </div>
 
-              <div style={{display:'flex', justifyContent:'center', padding: 20}}>
-                <h1>SIMILAR TV SERIES</h1>
-              </div>
-      <div className='test'>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: 20 }}>
+        <h1>SIMILAR TV SERIES</h1>
+      </div>
+      <Carousel
+        responsive={responsive}
+        ssr={true}
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={6000}
+
+      >
         {/* //checking if this movie have similar movies from the api returned value 
           if so then execute the code below that will show the similar movie and if not 
           then execute the code below (**starts with recommendations.map**)which gets a list of recommended movies for a movie. */}
@@ -178,7 +204,7 @@ const SeriesDetails = () => {
 
               <div key={index} className='similar-movie-details'>
 
-                {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.name} /> :
+                {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.name} style={{ padding: 60 }} /> :
                   single.backdrop_path ? <img src={API_IMG + single.backdrop_path} alt={single.name} /> :
                     <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={single.title} />}
                 {single.original_language === 'en' ? <p>{single.original_name}</p> :
@@ -227,11 +253,11 @@ const SeriesDetails = () => {
         }
 
 
-      </div>
+      </Carousel>
 
 
     </div>
-    
+
   )
 }
 

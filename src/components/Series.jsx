@@ -6,12 +6,17 @@ import { Pagination } from '@mui/material'
 import useGenres from '../useGenres'
 import './series.css'
 import { motion } from 'framer-motion'
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const Series = () => {
 
 
     const BASE_API = 'https://api.themoviedb.org/3'
-    const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
+    const API_KEY = process.env.REACT_APP_API_KEY
+    const API_IMG = 'https://image.tmdb.org/t/p/original/';
 
     const [series, setSeries] = useState([])
     const [totalPages, setTotalPages] = useState()
@@ -20,8 +25,10 @@ const Series = () => {
     const [genre, setGenre] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState([]);
     const [showGenres, setShowGenres] = useState(false)
-
+    const [nowPlaying, setNowPlaying] = useState([])
     const selectedGenreIds = useGenres(selectedGenre);
+
+
     const fetchSeries = async (query) => {
         const type = query ? 'search/tv' : 'discover/tv'
         const { data } = await axios.get(`${BASE_API}/${type}`, {
@@ -56,17 +63,29 @@ const Series = () => {
     const handleChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         window.scroll({
-            top: 0,
+            top: 730,
             behavior: 'smooth'
-        }
-
-        )
+        })
 
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         fetchSeries(query);
+        window.scroll({
+            top: 730,
+            behavior: 'smooth'
+        })
+    }
+
+    const fetchNowPlaying = async () => {
+        const { data } = await axios.get(`${BASE_API}/tv/on_the_air`, {
+            params: {
+                api_key: API_KEY,
+                language: 'en-US'
+            }
+        })
+        setNowPlaying(data.results)
     }
 
 
@@ -77,7 +96,7 @@ const Series = () => {
 
     useEffect(() => {
         fetchGenres();
-
+        fetchNowPlaying();
     }, [])
 
 
@@ -98,19 +117,102 @@ const Series = () => {
         ease: [0.43, 0.13, 0.23, 0.9]
     }
 
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 600,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        autoplay: true,
+        autoplaySpeed: 4500,
+        lazyLoad: true,
+        draggable: false,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true,
+
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
     return (
         <>
             <div>
-                <motion.div className='links' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
+                <div className='navbar'>
+                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition} className='mylinks'>
+                        <Link to='/'>
+                            <h1><span style={{ color: 'orange' }}>M</span>ovie Gallery</h1>
+                        </Link>
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition} className='mylinks'>
 
-                    <Link to='/'>
-                        <h1><span>M</span>ovie Gallery</h1>
-                    </Link>
+                        <motion.form onSubmit={handleSubmit} className='tv-form' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
+                            <input placeholder="Search Movies" type="text" className='tv-input' onChange={(e) => setQuery(e.target.value)} />
+                        </motion.form>
+                    </motion.div>
 
+                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition} className='mylinks'>
+
+                        <Link to='/'>
+                            <h1 style={{ fontSize: 28, fontWeight: 500 }}>Movies</h1>
+                        </Link>
+                    </motion.div>
+
+                </div>
+
+                <div className='slider'>
+                    <Slider {...settings}>
+                        {nowPlaying.map((movie,index) => {
+                            return (
+                                <Link to={'/series/' + movie.id} state={movie.id} className='now-playing'>
+                                    <div key={index}>
+
+                                        <img src={API_IMG + movie.poster_path} alt={movie.name} className='now-playing-img' />
+
+
+                                        {movie.original_language === 'ar' ?
+                                            <p className='now-playing-title'>{movie.original_name}</p>
+                                            :
+                                            <p className='now-playing-title'>{movie.name}</p>
+                                        }
+                                        <p className='vote'>{movie.vote_average}</p>
+                                    </div>
+                                </Link>
+
+
+                            )
+                        })}
+                    </Slider>
+
+
+
+                </div>
+                <motion.div className="heading" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
+                    <h1>Popular Series</h1>
                 </motion.div>
-                <motion.form onSubmit={handleSubmit} className='tv-form' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
-                    <input placeholder="Search TV Series" type="text" className='tv-input' onChange={(e) => setQuery(e.target.value)} />
-                </motion.form>
 
                 {
                     showGenres ?
@@ -142,7 +244,7 @@ const Series = () => {
                                         )
                                     })}
                             </div>
-                            <div className='filter-button'>
+                            <div className='filter-button' style={{ marginBottom: 25 }}>
                                 <motion.button onClick={() => setShowGenres(!showGenres)} >
                                     Hide Filter
                                 </motion.button>
@@ -152,7 +254,7 @@ const Series = () => {
 
 
 
-                        <div className='filter-button'>
+                        <div className='filter-button' style={{ marginBottom: 25 }}>
                             <motion.button onClick={() => setShowGenres(!showGenres)}>
                                 Show Filter
                             </motion.button>
@@ -164,9 +266,7 @@ const Series = () => {
 
 
 
-                <motion.div className="heading" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
-                    <h1>Popular Series</h1>
-                </motion.div>
+
 
                 <div className='series-card'>
 

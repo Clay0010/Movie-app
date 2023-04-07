@@ -10,7 +10,7 @@ function MovieDetails() {
   const API_BACKDROP = 'https://image.tmdb.org/t/p/original/';
   const API_TRAILER = 'https://api.themoviedb.org/3/movie'
 
-  const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
+  const API_KEY = process.env.REACT_APP_API_KEY
   const location = useLocation();
   const id = location.state;
 
@@ -181,7 +181,7 @@ function MovieDetails() {
                 return (
                   <Link to={'/actor/' + actor.id} state={actor.id}>
                     <div className='actors-details' key={index}>
-                      {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} /> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
+                      {actor.profile_path ? <img src={API_IMG + actor.profile_path} alt={actor.name} className='series-actors' /> : <img src='https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg' alt={actor.name} />}
                       {
                         actor.known_for_department === 'Acting' && <p>{actor.name}</p>
                       }
@@ -229,6 +229,7 @@ function MovieDetails() {
           infinite={true}
           autoPlay={true}
           autoPlaySpeed={6000}
+          draggable={false}
           
         >
           {/* //checking if this movie have similar movies from the api returned value 
@@ -236,13 +237,13 @@ function MovieDetails() {
           then execute the code below (**starts with recommendations.map**)which gets a list of recommended movies for a movie. */}
           {similar.length !== 0 ? similar.slice(0, 20).map((single, index) => {
             return (
-              <Link to={'/movie/' + similar.id} state={similar.id}>
+              <Link to={'/movie/' + single.id} state={single.id}>
 
                 <div key={index} className='similar-movie-details'>
 
-                  {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.title} /> :
-                    single.backdrop_path ? <img src={API_IMG + single.backdrop_path} alt={single.title} /> :
-                      <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={single.title} />}
+                  {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.title} style={{ padding: 40, height: 400 }} /> :
+                    single.backdrop_path ? <img src={API_IMG + single.backdrop_path} alt={single.title} style={{ padding: 40, height: 400 }} /> :
+                      <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={single.title} style={{ padding: 40, height: 400 }} />}
                   {single.original_language === 'en' ? <p>{single.original_title}</p> :
                     <p>{single.title}</p>
                   }

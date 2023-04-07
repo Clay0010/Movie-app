@@ -51,7 +51,7 @@ body {
 .heading {
 
     margin: 25px 0;
-    padding: 10px;
+    /* padding: 10px; */
 
     text-align: center;
     display: grid;
@@ -141,7 +141,7 @@ a {
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 1.5rem;
+    padding: .4rem;
 }
 
 .genres div p {
@@ -219,9 +219,108 @@ a {
 .mylinks {
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    /* gap: 3rem; */
     padding: 2rem;
     align-items: center;
+    width: 33.3%;
+}
+.slider{
+    margin-top: -7px;
+    margin-bottom: 45px;
 }
 
+.now-playing {
+    width: 100svw;
+    height: 80svh;
+    overflow: hidden;
+    position: relative;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(360deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 60%);
+    
+   
+}
 
+.now-playing-img {
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    
+    /* opacity: 0.5; */
+
+}
+.now-playing-title{
+    font-size: 1.2em;
+    text-shadow: 2px 2px 6px black;
+    position: absolute;
+    bottom: 5%;
+    
+    width: 100%;
+    text-align: center;
+    
+
+}
+.vote{
+    font-size: .8rem;
+    padding: .3rem;
+    background-color: #DBA506;
+    width: 2.4svw;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.navbar {
+    height: 4em;
+    /* margin: 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(36, 51, 65);
+    
+}
+
+.slick-prev {
+    left: 3% !important;
+    z-index: 1;
+
+}
+.slick-prev:before{
+    font-size: 40px !important;
+    opacity: 0.5 !important;
+}
+.slick-next:before {
+    font-size: 40px !important;
+    opacity: 0.5 !important;
+}
+
+.slick-next {
+    right: 4% !important;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 600px){
+    .slick-next {
+            right: 10% !important;
+            z-index: 1;
+        }
+    .navbar{
+        display: flex;
+        flex-direction: column;
+        height: 10rem;
+        justify-content: flex-start;
+        
+    }
+    .navbar .mylinks{
+        width: 100%;
+        padding: 7px;
+    }
+    .navbar h1{
+        font-size: 20px !important;
+    }
+    .vote{
+        width: 30px;
+    }
+}

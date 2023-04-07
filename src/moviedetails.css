@@ -2,7 +2,7 @@
 
 .container {
     position: relative;
-    
+
     overflow-x: hidden;
     /* height: 100vh;
     width: 100vw; */
@@ -98,22 +98,33 @@
 
 } */
 
-.similar-movie-details{
-    width: 280px;
+.similar-movie-details {
+    width: 100vw;
     display: flex;
     align-items: center;
     flex-direction: column;
-    
+overflow: hidden;
+
+}
+.dummy-image{
+    width: 350px;
+    height: 350px;
 }
 
-.similar-movie-details p{
+.movie {
+    width: 300px;
+    height: 420px;
+}
+
+.similar-movie-details p {
     padding: .5rem 0;
 }
 
 .similar-movies img {
     width: 100%;
-    height: 400px;
+    height: 400px !important;
     object-fit: cover;
+
 }
 
 .similar-heading {
@@ -147,7 +158,7 @@
 .genresM {
     display: flex;
     justify-content: space-between;
-    
+
 }
 
 .movieGenre {
@@ -159,21 +170,23 @@
     font-size: 14px;
     max-height: 43.2px;
 }
-.bxl-imdb{
-   font-size: 1.9rem;
-   color: #f3ce13;
+
+.bxl-imdb {
+    font-size: 1.9rem;
+    color: #f3ce13;
 }
 
-.genres-names{
+.genres-names {
     display: flex;
     gap: 20px;
 }
 
-.bxs-videos{
+.bxs-videos {
     font-size: 2.5rem;
-    transition:all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
-.bxs-videos:hover{
+
+.bxs-videos:hover {
     color: red;
 }
 
@@ -212,7 +225,7 @@
 
     .movie-details {
         width: 100% !important;
-        margin-top: 20px;
+        margin-top: 5px;
     }
 
     .movie-title {
@@ -220,7 +233,7 @@
     }
 
     .movie-overview {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .series-actors {

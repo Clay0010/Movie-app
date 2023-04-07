@@ -9,7 +9,7 @@ import Particle from '../particles/Particles'
 
 const Actor = () => {
     const BASE_API = 'https://api.themoviedb.org/3'
-    const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
+    const API_KEY = process.env.REACT_APP_API_KEY
     const API_IMG = 'https://image.tmdb.org/t/p/original/';
     const MOVIE_IMG = 'https://image.tmdb.org/t/p/w300/';
     const location = useLocation();
@@ -68,16 +68,19 @@ const Actor = () => {
         mobile: {
             breakpoint: { max: 464, min: 0 },
             items: 1,
-            slidesToSlide: 1 // optional, default to 1.
+            slidesToSlide: 1 //  optional, default to 1.
         }
     };
 
     return (
         <>
-            <div>
+            <div className='actor-link'>
 
                 <Link to='/' className='actor-links'>
                     Home
+                </Link>
+                <Link to='/series' className='actor-links'>
+                    Series
                 </Link>
             
 
@@ -95,6 +98,7 @@ const Actor = () => {
                         <h1>{actorDetails.name}</h1>
                     </div>
                     <p>{actorDetails.birthday}</p>
+                        <p>{actorDetails.place_of_birth}</p>
                 </div>
 
                 <div className='actor-related-movies'>

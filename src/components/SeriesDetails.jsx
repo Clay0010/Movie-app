@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from 'react-multi-carousel';
+
 const SeriesDetails = () => {
 
   const location = useLocation();
@@ -10,7 +11,7 @@ const SeriesDetails = () => {
   const API_IMG = 'https://image.tmdb.org/t/p/w300';
   const API_BACKDROP = 'https://image.tmdb.org/t/p/original/';
   const API_TRAILER = 'https://api.themoviedb.org/3/tv'
-  const API_KEY = '632bf4fb465f1296a555eed5ecee4ced'
+  const API_KEY = process.env.REACT_APP_API_KEY
 
   const [series, setSeries] = useState([])
   const [actors, setActors] = useState([]);
@@ -184,7 +185,7 @@ const SeriesDetails = () => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', padding: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: 25 }}>
         <h1>SIMILAR TV SERIES</h1>
       </div>
       <Carousel
@@ -193,20 +194,20 @@ const SeriesDetails = () => {
         infinite={true}
         autoPlay={true}
         autoPlaySpeed={6000}
-
+              draggable={false}
       >
         {/* //checking if this movie have similar movies from the api returned value 
           if so then execute the code below that will show the similar movie and if not 
           then execute the code below (**starts with recommendations.map**)which gets a list of recommended movies for a movie. */}
-        {similar.length === 0 ? similar.slice(0, 20).map((single, index) => {
+        {!similar.length === 0 ? similar.slice(0, 20).map((single, index) => {
           return (
             <Link to={'/series/' + similar.id} state={similar.id}>
 
-              <div key={index} className='similar-movie-details'>
+              <div key={index} className='similar-movie-details' style={{ padding: 50 }}>
 
-                {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.name} style={{ padding: 60 }} /> :
+                {single.poster_path ? <img src={API_IMG + single.poster_path} alt={single.name} style={{ width: 280, height: 400 }} /> :
                   single.backdrop_path ? <img src={API_IMG + single.backdrop_path} alt={single.name} /> :
-                    <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={single.title} />}
+                    <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={single.title} className='dummy-image'/>}
                 {single.original_language === 'en' ? <p>{single.original_name}</p> :
                   <p>{single.name}</p>
                 }
@@ -219,9 +220,9 @@ const SeriesDetails = () => {
           return (
             <Link to={'/series/' + recommended.id} state={recommended.id}>
               <div key={index} className="similar-movie-details">
-                {recommended.poster_path ? <img src={API_IMG + recommended.poster_path} alt={recommended.name} /> :
+                {recommended.poster_path ? <img src={API_IMG + recommended.poster_path} alt={recommended.name} style={{width: 280, height: 400}}/> :
                   recommended.backdrop_path ? <img src={API_IMG + recommended.backdrop_path} alt={recommended.name} /> :
-                    <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={recommended.name} />}
+                    <img src='https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg' alt={recommended.name} className='dummy-image'/>}
 
                 {recommended.original_language === 'en' ? <p>{recommended.original_name}</p> :
                   <p>{recommended.name}</p>
